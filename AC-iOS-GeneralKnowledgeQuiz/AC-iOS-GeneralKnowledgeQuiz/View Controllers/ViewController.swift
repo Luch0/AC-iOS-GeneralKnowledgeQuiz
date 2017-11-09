@@ -32,8 +32,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let category = questionRow.category
         let difficulty = questionRow.difficulty
         let type = questionRow.type
-        questionCell.detailTextLabel?.text = "\(category) \(difficulty) \(type)"
+        questionCell.detailTextLabel?.text = "Category: \(category) Difficulty: \(difficulty) Type: \(type)"
         return questionCell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? DetailedViewController {
+            let selectedRow = questionsTableView.indexPathForSelectedRow!.row
+            let selectedQuestion = self.allQuestions[selectedRow]
+            destination.theQuestion = selectedQuestion
+        }
     }
 
 }
